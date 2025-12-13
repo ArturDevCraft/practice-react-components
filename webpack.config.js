@@ -1,4 +1,4 @@
-const taskNumber = null;
+const taskNumber = '01';
 //numer przerabianego zadania
 
 const path = require('path');
@@ -6,36 +6,36 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // importuję odpowiedni plugin
 module.exports = {
-    entry: `./${taskNumber}/app.js`,
-    // definiuje plik wejściowy
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        // definiuję ścieżką wyjściową
-        filename: 'app.min.js',
-        // definiuję nazwę pliku wyjściowego
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                // określam jakie pliki 
-                // będą brane pod uwagę
-                exclude: /node_modules/,
-                // określam wykluczenia
-                use: 'babel-loader',
-                // określam jaki [loader]
-                // ma być wykorzystany
-            }
-        ]
-        // obecnie brak dodatkowych ustawień
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: `./${taskNumber}/index.html`,
-            // wskazuje plik źródłowy
-            filename: 'index.html'
-            // określam nazwę dla pliku
-        })
-    ]
-}
+	entry: `./${taskNumber}/app.js`,
+	// definiuje plik wejściowy
+	output: {
+		path: path.resolve(__dirname, 'build'),
+		// definiuję ścieżką wyjściową
+		filename: 'app.min.js',
+		// definiuję nazwę pliku wyjściowego
+	},
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				// określam jakie pliki
+				// będą brane pod uwagę
+				exclude: /node_modules/,
+				// określam wykluczenia
+				use: 'babel-loader',
+				// określam jaki [loader]
+				// ma być wykorzystany
+			},
+		],
+		// obecnie brak dodatkowych ustawień
+	},
+	plugins: [
+		new HtmlWebpackPlugin({
+			template: `./${taskNumber}/index.html`,
+			// wskazuje plik źródłowy
+			filename: 'index.html',
+			// określam nazwę dla pliku
+		}),
+	],
+};
 // eksportuję ustawienia dla webpack-a
