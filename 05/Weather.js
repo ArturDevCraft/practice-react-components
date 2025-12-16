@@ -1,4 +1,5 @@
 import React from 'react';
+import { getWeather } from './api';
 
 class Weather extends React.Component {
 	constructor(props) {
@@ -20,30 +21,6 @@ class Weather extends React.Component {
 		);
 	}
 
-	async getWeather(latitude, longitude) {
-		const API_KEY = 'e0bd7c2870b74690827f5e7aff5e82b4';
-		const units = 'I';
-		const lang = 'pl';
-		const urlParams = `?lat=${latitude}&lon=${longitude}&units=${units}&lang=${lang}&key=${API_KEY}`;
-		const URL = 'https://api.weatherbit.io/v2.0/current' + urlParams;
-		try {
-			const response = await fetch(URL);
-			if (!response.ok) {
-				throw new Error('Something went wrong!!!');
-			}
-			const weather = await response.json();
-			this.setState({
-				weather: {
-					temperature: weather.data[0].temp,
-					condition: weather.data[0].weather.description,
-				},
-			});
-			return weather.data[0];
-		} catch (err) {
-			throw new Error('Connection problem');
-		}
-	}
-
 	render() {
 		const { lat, lng } = this.props;
 		const { weather } = this.state;
@@ -53,9 +30,15 @@ class Weather extends React.Component {
 		return null;
 	}
 
-	componentDidMount() {
+	async componentDidMount() {
 		const { lat, lng } = this.props;
-		this.getWeather(lat, lng);
+		const weather = await getWeather(lat, lng);
+		this.setState({
+			weather: {
+				temperature: weather.temp,
+				condition: weather.weather.description,
+			},
+		});
 	}
 }
 

@@ -8,6 +8,7 @@ class App extends React.Component {
 		firstName: '',
 		lastName: '',
 		searchQuery: '',
+		error: '',
 		users: ['Jan Kowalski', 'Michał Nowak'],
 	};
 
@@ -20,6 +21,14 @@ class App extends React.Component {
 		return filtredUsers.map((name) => {
 			return <li onClick={this.clickHandler}>{name}</li>;
 		});
+	}
+
+	renderErrorBox() {
+		const { error } = this.state;
+		if (!error) {
+			return null;
+		}
+		return <div style={{ color: 'red' }}>{error}</div>;
 	}
 
 	clickHandler = (e) => {
@@ -38,6 +47,7 @@ class App extends React.Component {
 		const { firstName, lastName, searchQuery } = this.state;
 		return (
 			<section onSubmit={this.submitHandler}>
+				{this.renderErrorBox()}
 				<form>
 					<input
 						name="firstName"
@@ -66,9 +76,10 @@ class App extends React.Component {
 			this.setState({
 				firstName: '',
 				lastName: '',
+				error: '',
 			});
 		} else {
-			// tutaj komunikat dla użytkownika
+			this.setState({ error: 'Należy podać imię i nazwisko' });
 		}
 	};
 
